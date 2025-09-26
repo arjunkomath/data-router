@@ -1,0 +1,24 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: db-router-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dbrouter
+      POSTGRES_PASSWORD: dbrouter
+      POSTGRES_DB: dbrouter_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dbrouter -d dbrouter_dev"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+volumes:
+  db-data:
+  bun-cache:

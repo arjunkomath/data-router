@@ -1,0 +1,151 @@
+{
+	"routes": [
+		{
+			"path": "/users",
+			"method": "GET",
+			"query": "SELECT id, name, email, active, created_at FROM users WHERE active = true",
+			"description": "Get all active users",
+			"cache": {
+				"type": "memory",
+				"ttl": 60
+			},
+			"pagination": {
+				"enabled": true,
+				"defaultLimit": 20,
+				"maxLimit": 100
+			},
+			"response": {
+				"transform": "camelCase",
+				"exclude": ["internal_id"]
+			}
+		},
+		{
+			"path": "/users/:id",
+			"method": "GET",
+			"query": "SELECT id, name, email, active, created_at, updated_at FROM users WHERE id = $1 AND active = true",
+			"params": ["id"],
+			"description": "Get user by ID",
+			"response": {
+				"transform": "camelCase"
+			}
+		},
+		{
+			"path": "/posts",
+			"method": "GET",
+			"query": "SELECT p.id, p.title, p.content, p.published, p.created_at, u.name as author_name FROM posts p JOIN users u ON p.user_id = u.id WHERE p.published = true ORDER BY p.created_at DESC",
+			"description": "Get all published posts with author names",
+			"pagination": {
+				"enabled": true,
+				"defaultLimit": 10,
+				"maxLimit": 50
+			},
+			"response": {
+				"transform": "camelCase"
+			}
+		},
+		{
+			"path": "/posts/:id",
+			"method": "GET",
+			"query": "SELECT p.id, p.title, p.content, p.published, p.created_at, p.updated_at, u.name as author_name, u.email as author_email FROM posts p JOIN users u ON p.user_id = u.id WHERE p.id = $1 AND p.published = true",
+			"params": ["id"],
+			"description": "Get published post by ID with author details",
+			"response": {
+				"transform": "camelCase"
+			}
+		},
+		{
+			"path": "/users/:user_id/posts",
+			"method": "GET",
+			"query": "SELECT id, title, content, published, created_at FROM posts WHERE user_id = $1 AND published = true ORDER BY created_at DESC",
+			"params": ["user_id"],
+			"description": "Get published posts by user ID",
+			"pagination": {
+				"enabled": true,
+				"defaultLimit": 10,
+				"maxLimit": 50
+			},
+			"response": {
+				"transform": "camelCase"
+			}
+		},
+		{
+			"path": "/admin/users",
+			"method": "GET",
+			"query": "SELECT id, name, email, active, created_at, updated_at FROM users ORDER BY created_at DESC",
+			"description": "Admin: Get all users (including inactive)",
+			"cache": {
+				"type": "memory",
+				"ttl": 30
+			},
+			"auth": {
+				"required": true,
+				"type": "apikey",
+				"header": "x-admin-key"
+			},
+			"pagination": {
+				"enabled": true,
+				"defaultLimit": 20,
+				"maxLimit": 100
+			},
+			"response": {
+				"transform": "camelCase"
+			}
+		},
+		{
+			"path": "/admin/posts",
+			"method": "GET",
+			"query": "SELECT p.id, p.title, p.published, p.created_at, u.name as author_name FROM posts p JOIN users u ON p.user_id = u.id ORDER BY p.created_at DESC",
+			"description": "Admin: Get all posts (including unpublished)",
+			"auth": {
+				"required": true,
+				"type": "apikey",
+				"header": "x-admin-key"
+			},
+			"pagination": {
+				"enabled": true,
+				"defaultLimit": 20,
+				"maxLimit": 100
+			},
+			"response": {
+				"transform": "camelCase"
+			}
+		},
+		{
+			"path": "/stats/users-count",
+			"method": "GET",
+			"query": "SELECT COUNT(*) as total_users, COUNT(CASE WHEN active = true THEN 1 END) as active_users FROM users",
+			"description": "Get user statistics",
+			"response": {
+				"transform": "camelCase",
+				"wrapper": {
+					"data": "stats",
+					"success": "success"
+				}
+			}
+		},
+		{
+			"path": "/stats/posts-count",
+			"method": "GET",
+			"query": "SELECT COUNT(*) as total_posts, COUNT(CASE WHEN published = true THEN 1 END) as published_posts FROM posts",
+			"description": "Get post statistics",
+			"response": {
+				"transform": "camelCase",
+				"wrapper": {
+					"data": "stats",
+					"success": "success"
+				}
+			}
+		}
+	],
+	"global": {
+		"cors": {
+			"origins": ["http://localhost:3000", "http://localhost:5173", "*"],
+			"credentials": true,
+			"methods": ["GET", "OPTIONS"]
+		},
+		"errorHandler": {
+			"includeStack": false,
+			"includeQuery": true
+		}
+	}
+}
