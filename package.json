@@ -10,7 +10,9 @@
     "build": "bun build src/index.ts --outdir=dist --target=bun",
     "typecheck": "tsc --noEmit",
     "format": "biome format --write .",
-    "lint": "biome lint --write ."
+    "format:check": "biome format .",
+    "lint": "biome lint --write .",
+    "lint:check": "biome lint ."
   },
   "dependencies": {
     "zod": "^3.22.4"
