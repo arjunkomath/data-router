@@ -1,38 +1,38 @@
 {
-  "name": "data-router",
-  "version": "0.0.1",
-  "description": "JSON-configured database query router with automatic API generation",
-  "main": "src/index.ts",
-  "scripts": {
-    "dev": "bun --hot src/index.ts",
-    "test": "bun test",
-    "start": "bun src/index.ts",
-    "build": "bun build src/index.ts --outdir=dist --target=bun",
-    "typecheck": "tsc --noEmit",
-    "format": "biome format --write .",
-    "format:check": "biome format .",
-    "lint": "biome lint --write .",
-    "lint:check": "biome lint ."
-  },
-  "dependencies": {
-    "zod": "^3.22.4"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.2.4",
-    "@types/bun": "^1.2.22",
-    "typescript": "^5.3.3"
-  },
-  "peerDependencies": {
-    "bun": ">=1.0.0"
-  },
-  "keywords": [
-    "database",
-    "api",
-    "postgres",
-    "bun",
-    "router",
-    "json-config"
-  ],
-  "author": "Arjun Komath",
-  "license": "MIT"
+	"name": "data-router",
+	"version": "0.0.1",
+	"description": "JSON-configured database query router with automatic API generation",
+	"main": "src/index.ts",
+	"scripts": {
+		"dev": "bun --hot src/index.ts",
+		"test": "bun test",
+		"start": "bun src/index.ts",
+		"build": "bun build src/index.ts --outdir=dist --target=bun",
+		"typecheck": "tsc --noEmit",
+		"format": "biome format --write .",
+		"format:check": "biome format .",
+		"lint": "biome lint --write .",
+		"lint:check": "biome lint ."
+	},
+	"dependencies": {
+		"zod": "^3.22.4"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.2.4",
+		"@types/bun": "^1.2.22",
+		"typescript": "^5.3.3"
+	},
+	"peerDependencies": {
+		"bun": ">=1.0.0"
+	},
+	"keywords": [
+		"database",
+		"api",
+		"postgres",
+		"bun",
+		"router",
+		"json-config"
+	],
+	"author": "Arjun Komath",
+	"license": "MIT"
 }

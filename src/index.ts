@@ -62,7 +62,10 @@ class DbRouter {
 			port: this.port,
 			fetch: async (request: Request) => {
 				try {
-					return await this.requestHandler?.handleRequest(request) ?? new Response("Server not ready", { status: 503 });
+					return (
+						(await this.requestHandler?.handleRequest(request)) ??
+						new Response("Server not ready", { status: 503 })
+					);
 				} catch (error) {
 					console.error("Request error:", error);
 					return ResponseTransformer.createErrorResponse(
