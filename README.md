@@ -373,25 +373,8 @@ The entire codebase is written in TypeScript with strict type checking enabled. 
 - Structured error responses
 - Optional stack trace inclusion for debugging
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
-
-MIT License - see LICENSE file for details.
-
 ## Roadmap
 
-- [ ] Support for more SQL operations (INSERT, UPDATE, DELETE) with proper safeguards
 - [ ] Query result caching with Redis
 - [ ] Rate limiting
-- [ ] WebSocket support for real-time queries
-- [ ] Admin dashboard for route management
-- [ ] Query performance monitoring
-- [ ] Database schema introspection
 - [ ] Auto-generated OpenAPI documentation
