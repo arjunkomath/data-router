@@ -1,6 +1,21 @@
 # Data Router
 
-A JSON-configured database query router with automatic API generation for PostgreSQL. Built with Bun for maximum performance and simplicity.
+A JSON-configured database query router with automatic API generation for PostgreSQL.
+
+> In layman's terms, you can create API endpoints for exposing data from a Postgres DB.
+
+## Why?
+
+I used this to create internal endpoints that would expose data from a DB through APIs, mostly for debugging & analytics purposes.
+
+> [!WARNING]  
+> **Lot of the code was written by AI (Claude)**, this was an experiment and I didn't want to spend hours writing this.
+>
+> If you're wondering this works; yes, it works fine.
+
+Over to you Claude.
+
+---
 
 ## Features
 
